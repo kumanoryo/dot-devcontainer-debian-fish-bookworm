@@ -1,6 +1,6 @@
 {
     "name": "debian-fish-bookworm",
-    "image": "ghcr.io/kumanoryo/debian-fish:bookworm",
+    "image": "ghcr.io/bearfield/debian-fish:bookworm",
     "remoteUser": "kumano_ryo",
     "mounts": [
         "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/kumano_ryo/.gitconfig,type=bind,consistency=cached",

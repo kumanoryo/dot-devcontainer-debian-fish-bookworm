@@ -76,8 +76,8 @@ USER $USER_NAME
 SHELL ["fish", "-c"]
 RUN curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 # insetall my fish plugin
-RUN fisher install kumanoryo/peco_select_gce_ssh
-RUN fisher install kumanoryo/peco_select_gcp_project
+RUN fisher install bearfield/peco_select_gce_ssh
+RUN fisher install bearfield/peco_select_gcp_project
 # power line style
 RUN fisher install oh-my-fish/theme-bobthefish
 #
@@ -95,4 +95,4 @@ RUN sudo git clone git://git.kernel.org/pub/scm/git/git.git \
     && sudo rm -fr git
 # set env
 ENV DEBIAN_FRONTEND=dialog
-LABEL org.opencontainers.image.source https://github.com/kumanoryo/dot-devcontainer-debian-fish-bookworm
+LABEL org.opencontainers.image.source https://github.com/bearfield/dot-devcontainer-debian-fish-bookworm

@@ -1,4 +1,4 @@
-DOCKERHUB_REPONAME=ghcr.io/kumanoryo
+DOCKERHUB_REPONAME=ghcr.io/bearfield
 CONTAINER_NAME=debian-fish
 CONTAINER_TAG=test.bookworm
 
