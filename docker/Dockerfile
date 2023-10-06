@@ -29,6 +29,7 @@ RUN apt-get update \
         libz-dev \
         libssl-dev \
         gcc \
+        less \
 #
 # set locale
     && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
