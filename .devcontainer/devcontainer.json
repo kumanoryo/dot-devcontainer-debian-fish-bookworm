@@ -27,7 +27,9 @@
                 "foxundermoon.shell-format",
                 "github.copilot",
                 "bmalehorn.vscode-fish",
-                "ms-vscode.makefile-tools"
+                "ms-vscode.makefile-tools",
+                "ms-azuretools.vscode-docker",
+                "oderwat.indent-rainbow"
             ]
         }
     }
