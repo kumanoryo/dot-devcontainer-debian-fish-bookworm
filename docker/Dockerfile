@@ -72,6 +72,29 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     && unzip awscliv2.zip \
     && sudo ./aws/install
 #
+# install git (required git >=  2.35)
+WORKDIR /usr/local/src
+RUN git clone git://git.kernel.org/pub/scm/git/git.git \
+    && apt-get remove -y git \
+    && cd git \
+    && make prefix=/usr all \
+    && make prefix=/usr install \
+    && cd ../ \
+    && rm -fr git \
+#
+# install docker
+    && curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg \
+    && echo \
+        "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+        $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null \
+    && sudo apt-get update \
+    && sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
+    && sudo usermod -aG docker $USER_NAME \
+    # crean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+	&& rm -rf /var/lib/apt/lists/*
+#
 # isntall fisher
 USER $USER_NAME
 SHELL ["fish", "-c"]
@@ -84,16 +107,7 @@ RUN fisher install oh-my-fish/theme-bobthefish
 #
 # copy config.fish
 COPY config.fish /home/$USER_NAME/.config/fish/config.fish
-#
-# install git (required git >=  2.35)
-WORKDIR /usr/local/src
-RUN sudo git clone git://git.kernel.org/pub/scm/git/git.git \
-    && sudo apt-get remove -y git \
-    && cd git \
-    && sudo make prefix=/usr all \
-    && sudo make prefix=/usr install \
-    && cd ../ \
-    && sudo rm -fr git
+
 # set env
 ENV DEBIAN_FRONTEND=dialog
 LABEL org.opencontainers.image.source https://github.com/bearfield/dot-devcontainer-debian-fish-bookworm
