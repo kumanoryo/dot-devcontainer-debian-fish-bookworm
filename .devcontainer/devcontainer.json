@@ -27,6 +27,7 @@
                 "foxundermoon.shell-format",
                 "github.copilot",
                 "bmalehorn.vscode-fish",
+                "github.copilot-chat",
                 "ms-vscode.makefile-tools",
                 "ms-azuretools.vscode-docker",
                 "oderwat.indent-rainbow"
