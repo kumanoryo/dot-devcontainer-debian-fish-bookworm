@@ -70,11 +70,10 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
     && apt-get install -y \
         google-cloud-sdk \
         kubectl \
+        google-cloud-cli-gke-gcloud-auth-plugin \
     # crean up
     && apt-get clean -y \
-	&& rm -rf /var/lib/apt/lists/* \
-    # install gcloud components
-    && gcloud components install gke-gcloud-auth-plugin
+	&& rm -rf /var/lib/apt/lists/*
 # install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
