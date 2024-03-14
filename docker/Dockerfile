@@ -74,7 +74,7 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/* \
     # install gcloud components
-    && gcloud components install gke-cloud-auth-plugin
+    && gcloud components install gke-gcloud-auth-plugin
 # install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
