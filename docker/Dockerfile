@@ -3,11 +3,17 @@ FROM debian:bookworm-slim
 # set argument
 ARG USER_NAME=kumano_ryo
 ARG USER_ID=501
-ARG GROUP_NAME=$USER_NAME
 ARG GROUP_ID=$USER_ID
 #
 # install packages and tools
 ENV DEBIAN_FRONTEND=noninteractive
+#
+# create noroot user
+RUN mkdir -p /etc/sudoers.d \
+    && groupadd --gid ${GROUP_ID} ${USER_NAME} \
+    && useradd -s "$(command -v fish)" --uid ${USER_ID} --gid ${GROUP_ID} -m ${USER_NAME} \
+    && echo "${USER_NAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USER_NAME} \
+    && chmod 0440 /etc/sudoers.d/${USER_NAME}
 RUN apt-get update \
     # install debian packages
     && apt-get install  --no-install-recommends -y \
@@ -56,12 +62,6 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
-#
-# create noroot user
-RUN groupadd --gid $GROUP_ID $GROUP_NAME \
-    && useradd -s $(which fish) --uid $USER_ID --gid $GROUP_ID -m $USER_NAME \
-    && echo $USER_NAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER_NAME \
-    && chmod 0440 /etc/sudoers.d/$USER_NAME
 #
 # install Google Cloud SDK
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list \
@@ -117,4 +117,4 @@ COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 
 # set env
 ENV DEBIAN_FRONTEND=dialog
-LABEL org.opencontainers.image.source https://github.com/bearfield/dot-devcontainer-debian-fish-bookworm
+LABEL org.opencontainers.image.source=https://github.com/bearfield/dot-devcontainer-debian-fish-bookworm
