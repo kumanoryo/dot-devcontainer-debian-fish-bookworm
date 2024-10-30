@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # create noroot user
 RUN mkdir -p /etc/sudoers.d \
     && groupadd --gid ${GROUP_ID} ${USER_NAME} \
-    && useradd -s "$(command -v fish)" --uid ${USER_ID} --gid ${GROUP_ID} -m ${USER_NAME} \
+    && useradd -s "/usr/bin/fish" --uid ${USER_ID} --gid ${GROUP_ID} -m ${USER_NAME} \
     && echo "${USER_NAME} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${USER_NAME} \
     && chmod 0440 /etc/sudoers.d/${USER_NAME}
 RUN apt-get update \
