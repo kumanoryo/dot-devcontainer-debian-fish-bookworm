@@ -9,7 +9,7 @@ WORK_DIR=$(MAKEFILE_DIR)
 .PHONY:test.build
 test.build:
 	cd $(WORK_DIR)
-	docker buildx build --tag=$(DOCKERHUB_REPONAME)/$(CONTAINER_NAME):$(CONTAINER_TAG) ./docker
+	docker buildx build --tag=$(DOCKERHUB_REPONAME)/$(CONTAINER_NAME):$(CONTAINER_TAG) ./docker_arm64/ --platform linux/arm64
 
 .PHONY:test.rmi
 test.rmi:
