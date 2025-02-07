@@ -79,16 +79,6 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     && unzip awscliv2.zip \
     && sudo ./aws/install
 #
-# install git (required git >=  2.35)
-WORKDIR /usr/local/src
-RUN git clone git://git.kernel.org/pub/scm/git/git.git \
-    && apt-get remove -y git \
-    && cd git \
-    && make prefix=/usr all \
-    && make prefix=/usr install \
-    && cd ../ \
-    && rm -fr git
-#
 # install docker
     # Add Docker's official GPG key:
 RUN install -m 0755 -d /etc/apt/keyrings \
