@@ -97,6 +97,15 @@ RUN install -m 0755 -d /etc/apt/keyrings \
     && apt-get autoremove -y \
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
+# install claude-code
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest \
+    && npm install -g @anthropic-ai/claude-code \
+    # crean up
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 #
 # isntall fisher
 USER $USER_NAME
