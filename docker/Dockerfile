@@ -29,6 +29,7 @@ RUN apt-get update \
         locales \
         openssh-client \
         unzip \
+        wget \
         shellcheck \
         libcurl4-gnutls-dev \
         libexpat1-dev gettext \
@@ -74,6 +75,16 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
     # crean up
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
+# install GitHub CLI
+RUN mkdir -p -m 755 /etc/apt/keyrings \
+    && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+    && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install -y gh \
+    # clean up
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
 # install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
