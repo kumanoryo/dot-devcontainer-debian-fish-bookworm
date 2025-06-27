@@ -56,6 +56,23 @@ The Dockerfile (`docker/Dockerfile`) sets up:
 - Includes timezone and date format customization
 - Sets up cloud SDK configuration
 
+## DevContainer Configuration
+
+### VS Code Extensions
+The devcontainer includes the following extensions:
+- Shell and development tools (Fish, ShellCheck, GitLens, etc.)
+- Cloud and container tools (Docker, GitHub Actions)
+- AI assistants (GitHub Copilot, Claude Code)
+- Diagram support (Mermaid preview)
+- Security scanning (Trivy)
+
+### Mounted Volumes
+The devcontainer mounts several local directories:
+- `~/.gitconfig_linux` → `/home/kumano_ryo/.gitconfig`
+- `~/.config/gcloud` → `/home/kumano_ryo/.config/gcloud`
+- `~/.ssh` → `/home/kumano_ryo/.ssh`
+- `~/.claude` → `/home/kumano_ryo/.claude` (for Claude Code settings)
+
 ## Development Workflow
 
 When modifying the container:
@@ -63,3 +80,8 @@ When modifying the container:
 2. Update `docker/config.fish` for shell configuration
 3. Use `make test` to verify both architectures build correctly
 4. The build process automatically tests and cleans up images
+
+### Working with DevContainers
+- The `.devcontainer/devcontainer.json` defines the development environment
+- Local Claude settings are automatically available in the container via volume mount
+- Mermaid diagrams can be previewed directly in VS Code
