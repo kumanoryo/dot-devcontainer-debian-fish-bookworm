@@ -5,7 +5,8 @@
     "mounts": [
         "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/kumano_ryo/.gitconfig,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.config/gcloud,target=/home/kumano_ryo/.config/gcloud,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.ssh,target=/home/kumano_ryo/.ssh,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/.ssh,target=/home/kumano_ryo/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.claude,target=/home/kumano_ryo/.claude,type=bind,consistency=cached"
     ],
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
@@ -42,6 +43,8 @@
                 "docker.docker",
                 "github.vscode-github-actions",
                 "github.copilot-chat",
+                "vstirbu.vscode-mermaid-preview",
+                "anthropic.claude-code",
                 "aquasecurityofficial.trivy-vulnerability-scanner"
             ]
         }
