@@ -54,11 +54,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Create and push manifest
         run: |
-          docker manifest create \
-            ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }} \
+          docker buildx imagetools create \
+            --tag ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }} \
             ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-arm64 \
             ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-amd64
-          
-          docker manifest push ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}
