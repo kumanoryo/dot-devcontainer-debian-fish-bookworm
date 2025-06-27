@@ -85,3 +85,18 @@ When modifying the container:
 - The `.devcontainer/devcontainer.json` defines the development environment
 - Local Claude settings are automatically available in the container via volume mount
 - Mermaid diagrams can be previewed directly in VS Code
+
+## CI/CD with GitHub Actions
+
+### Parallel Build Architecture
+The GitHub Actions workflow (`.github/workflows/debian-fish-bookworm.yaml`) uses a matrix build strategy to parallelize the multi-platform image creation:
+
+1. **Build Job**: Uses matrix strategy to build arm64 and amd64 images in parallel
+   - Each platform builds independently with its own tag (`bookworm-arm64`, `bookworm-amd64`)
+   - Significantly reduces total build time
+
+2. **Push-Manifest Job**: Creates the final multi-platform manifest
+   - Combines both platform-specific images
+   - Pushes the unified `bookworm` tag
+
+This parallel approach cuts the build time approximately in half compared to sequential builds.
