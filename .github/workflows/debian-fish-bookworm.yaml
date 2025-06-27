@@ -6,9 +6,14 @@ on:
   schedule:
     - cron: '0 18 * * *'
 jobs:
-  push_to_registry:
-    name: Build docker image from Dockerfile
+  build:
+    name: Build docker image for ${{ matrix.platform }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - linux/arm64
+          - linux/amd64
     steps:
       - name: Set container image name and tag
         run: |
@@ -17,18 +22,43 @@ jobs:
         id: container
       - name: Check out the repo
         uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      - name: Docker Build and Push
+      - name: Docker Build and Push by Platform
         uses: docker/build-push-action@v5
         with:
           push: true
-          platforms: linux/arm64,linux/amd64
+          platforms: ${{ matrix.platform }}
           context: ./docker
-          tags: ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}
+          tags: ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-${{ matrix.platform == 'linux/arm64' && 'arm64' || 'amd64' }}
+  
+  push-manifest:
+    name: Create and push multi-platform manifest
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Set container image name and tag
+        run: |
+          echo "image-name=debian-fish" >> $GITHUB_OUTPUT
+          echo "tag=bookworm" >> $GITHUB_OUTPUT
+        id: container
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Create and push manifest
+        run: |
+          docker manifest create \
+            ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }} \
+            ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-arm64 \
+            ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-amd64
+          
+          docker manifest push ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}
