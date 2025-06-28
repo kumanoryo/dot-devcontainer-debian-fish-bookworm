@@ -1,12 +1,12 @@
 {
     "name": "debian-fish-bookworm",
     "image": "ghcr.io/bearfield/debian-fish:bookworm",
-    "remoteUser": "kumano_ryo",
+    "remoteUser": "devuser",
     "mounts": [
-        "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/kumano_ryo/.gitconfig,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.config/gcloud,target=/home/kumano_ryo/.config/gcloud,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.ssh,target=/home/kumano_ryo/.ssh,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude,target=/home/kumano_ryo/.claude,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/devuser/.gitconfig,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/gcloud,target=/home/devuser/.config/gcloud,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh,target=/home/devuser/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.claude,target=/home/devuser/.claude,type=bind,consistency=cached"
     ],
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
