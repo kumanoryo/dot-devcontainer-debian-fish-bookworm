@@ -1,8 +1,9 @@
 FROM debian:bookworm-slim
 #
 # set argument
-ARG USER_NAME=kumano_ryo
-ARG USER_ID=501
+# Default values for build arguments (can be overridden during build)
+ARG USER_NAME=devuser
+ARG USER_ID=1000
 ARG GROUP_ID=$USER_ID
 #
 # install packages and tools

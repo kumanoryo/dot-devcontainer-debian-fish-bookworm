@@ -77,6 +77,41 @@ make test.rmi.arm64
 make test.rmi.amd64
 ```
 
+## ビルドカスタマイズ
+
+### ビルド引数の使用
+コンテナ内のユーザー名やUIDをカスタマイズできます：
+
+```bash
+# ローカルビルド時の例
+make test USER_NAME=myuser USER_ID=1001 GROUP_ID=1001
+
+# 特定のアーキテクチャのみ
+make test.arm64 USER_NAME=myuser USER_ID=1001
+```
+
+### デフォルト値
+- `USER_NAME`: devuser
+- `USER_ID`: 1000
+- `GROUP_ID`: 1000
+
+### 環境変数の設定
+`.env.example`をコピーして`.env`を作成し、デフォルト値をカスタマイズできます：
+
+```bash
+cp .env.example .env
+# .envファイルを編集してカスタマイズ
+```
+
+### GitHub Actionsでのカスタマイズ
+リポジトリの設定で以下の変数を設定できます（Settings → Secrets and variables → Actions → Variables）：
+
+- `CONTAINER_USER_NAME`: コンテナ内のユーザー名
+- `CONTAINER_USER_ID`: ユーザーID
+- `CONTAINER_GROUP_ID`: グループID（設定しない場合はUSER_IDと同じ値）
+
+これらの変数を設定することで、GitHub Actionsでビルドされるイメージをカスタマイズできます。
+
 ## CI/CD
 
 このプロジェクトはGitHub Actionsを使用して自動ビルドを行います。

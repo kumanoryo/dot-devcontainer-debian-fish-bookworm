@@ -68,10 +68,10 @@ The devcontainer includes the following extensions:
 
 ### Mounted Volumes
 The devcontainer mounts several local directories:
-- `~/.gitconfig_linux` → `/home/kumano_ryo/.gitconfig`
-- `~/.config/gcloud` → `/home/kumano_ryo/.config/gcloud`
-- `~/.ssh` → `/home/kumano_ryo/.ssh`
-- `~/.claude` → `/home/kumano_ryo/.claude` (for Claude Code settings)
+- `~/.gitconfig_linux` → `/home/devuser/.gitconfig`
+- `~/.config/gcloud` → `/home/devuser/.config/gcloud`
+- `~/.ssh` → `/home/devuser/.ssh`
+- `~/.claude` → `/home/devuser/.claude` (for Claude Code settings)
 
 ## Development Workflow
 

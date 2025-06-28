@@ -37,6 +37,10 @@ jobs:
           platforms: ${{ matrix.platform }}
           context: ./docker
           tags: ghcr.io/${{ github.repository_owner }}/${{ steps.container.outputs.image-name }}:${{ steps.container.outputs.tag }}-${{ matrix.platform == 'linux/arm64' && 'arm64' || 'amd64' }}
+          build-args: |
+            USER_NAME=${{ vars.CONTAINER_USER_NAME || 'devuser' }}
+            USER_ID=${{ vars.CONTAINER_USER_ID || '1000' }}
+            GROUP_ID=${{ vars.CONTAINER_GROUP_ID || vars.CONTAINER_USER_ID || '1000' }}
   
   push-manifest:
     name: Create and push multi-platform manifest
