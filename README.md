@@ -1,6 +1,25 @@
 # dot-devcontainer-debian-fish-bookworm
 Create docker container 'ghcr.io/bearfield/debian-fish:bookworm' for development.
 
+## 特徴
+
+### 開発ツール
+- **JSON/YAML処理**: jq, yq
+- **ファイル操作**: tree, zip/unzip
+- **API テスト**: httpie
+- **その他**: git, curl, make, peco, fish shell
+
+### クラウドツール
+- Google Cloud SDK
+- AWS CLI
+- 1Password CLI
+- Docker CE
+
+### 開発環境
+- Node.js & Claude Code CLI
+- Fish shell with bobthefish theme
+- VS Code Extensions (GitHub Copilot, Claude Code, etc.)
+
 ## ビルドフロー
 
 以下はこのプロジェクトのDockerイメージビルドプロセスを示すフロー図です：

@@ -45,10 +45,12 @@ The Makefile uses these environment variables:
 The Dockerfile (`docker/Dockerfile`) sets up:
 1. User creation with configurable USER_NAME, USER_ID, GROUP_ID
 2. Essential development packages (git, curl, make, peco, fish, etc.)
-3. Cloud tools (Google Cloud SDK, AWS CLI, 1Password CLI)
-4. Docker CE installation
-5. Node.js and Claude Code CLI
-6. Fish shell plugins via Fisher
+3. Development tools (jq, tree, zip/unzip for file operations)
+4. Cloud tools (Google Cloud SDK, AWS CLI, 1Password CLI)
+5. Docker CE installation
+6. Node.js and Claude Code CLI
+7. Python tools via uv (httpie for API testing, yq for YAML processing)
+8. Fish shell plugins via Fisher
 
 ### Fish Configuration
 - Located at `docker/config.fish`
@@ -67,11 +69,13 @@ The devcontainer includes the following extensions:
 - Security scanning (Trivy)
 
 ### Mounted Volumes
-The devcontainer mounts several local directories:
-- `~/.gitconfig_linux` → `/home/devuser/.gitconfig`
-- `~/.config/gcloud` → `/home/devuser/.config/gcloud`
-- `~/.ssh` → `/home/devuser/.ssh`
-- `~/.claude` → `/home/devuser/.claude` (for Claude Code settings)
+The devcontainer mounts several local directories using the host user's environment:
+- `~/.gitconfig_linux` → `/home/${USER}/.gitconfig`
+- `~/.config/gcloud` → `/home/${USER}/.config/gcloud`
+- `~/.ssh` → `/home/${USER}/.ssh`
+- `~/.claude` → `/home/${USER}/.claude` (for Claude Code settings)
+
+**Note**: The devcontainer uses `${localEnv:USER}` to automatically map to the host user's username.
 
 ## Development Workflow
 
