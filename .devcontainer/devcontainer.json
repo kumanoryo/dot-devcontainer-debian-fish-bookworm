@@ -1,12 +1,15 @@
 {
     "name": "debian-fish-bookworm",
     "image": "ghcr.io/bearfield/debian-fish:bookworm",
-    "remoteUser": "devuser",
+    "containerEnv": {
+        "DEVCONTAINER_USER": "devuser"
+    },
+    "remoteUser": "${containerEnv:DEVCONTAINER_USER}",
     "mounts": [
-        "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/devuser/.gitconfig,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.config/gcloud,target=/home/devuser/.config/gcloud,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.ssh,target=/home/devuser/.ssh,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude,target=/home/devuser/.claude,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/${containerEnv:DEVCONTAINER_USER}/.gitconfig,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.config/gcloud,target=/home/${containerEnv:DEVCONTAINER_USER}/.config/gcloud,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.ssh,target=/home/${containerEnv:DEVCONTAINER_USER}/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.claude,target=/home/${containerEnv:DEVCONTAINER_USER}/.claude,type=bind,consistency=cached"
     ],
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
