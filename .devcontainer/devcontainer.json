@@ -6,7 +6,7 @@
         "source=${localEnv:HOME}/devcontainer_conf/.gitconfig_linux,target=/home/${localEnv:USER}/.gitconfig,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.config/gcloud,target=/home/${localEnv:USER}/.config/gcloud,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.claude,target=/home/${localEnv:USER}/.claude,type=bind,consistency=cached"
+        "source=${localEnv:HOME}/.claude/CLAUDE.md,target=/home/${localEnv:USER}/.claude/CLAUDE.md,type=bind,consistency=cached"
     ],
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
