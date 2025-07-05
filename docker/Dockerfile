@@ -43,6 +43,9 @@ RUN apt-get update \
         zip \
         unzip \
         python3 \
+        python3-dev \
+        build-essential \
+        libffi-dev \
 #
 # set locale
     && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
@@ -123,11 +126,32 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
-# install uv and python tools
+# install uv globally
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
-    && export PATH="/root/.local/bin:$PATH" \
-    && uv tool install httpie \
-    && uv tool install yq
+    && mv /root/.local/bin/uv /usr/local/bin/uv \
+    && chmod 755 /usr/local/bin/uv \
+    && rm -rf /root/.local
+# Install Python system-wide
+RUN export UV_PYTHON_INSTALL_DIR=/opt/uv/python \
+    && uv python install 3.13 \
+    && uv python pin 3.13 \
+    && ln -sf /opt/uv/python/cpython-3.13.*/bin/python3.13 /usr/local/bin/python3.13 \
+    && ln -sf /usr/local/bin/python3.13 /usr/local/bin/python3 \
+    && ln -sf /usr/local/bin/python3.13 /usr/local/bin/python \
+    && chmod -R 755 /opt/uv
+# Install Python tools as devuser
+USER $USER_NAME
+RUN uv tool install httpie \
+    && uv tool install yq \
+    && uv tool install ruff \
+    && uv tool install mypy \
+    && uv tool install black \
+    && uv tool install pytest \
+    && uv tool install ipython \
+    && uv tool install poetry \
+    && uv tool install pipx
+# Switch back to root
+USER root
 #
 # isntall fisher
 USER $USER_NAME
@@ -149,4 +173,8 @@ RUN mkdir -p /home/$USER_NAME/.claude && \
 
 # set env
 ENV DEBIAN_FRONTEND=dialog
+# Python environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV UV_SYSTEM_PYTHON=1
 LABEL org.opencontainers.image.source=https://github.com/bearfield/dot-devcontainer-debian-fish-bookworm
