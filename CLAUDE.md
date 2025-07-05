@@ -49,14 +49,36 @@ The Dockerfile (`docker/Dockerfile`) sets up:
 4. Cloud tools (Google Cloud SDK, AWS CLI, 1Password CLI)
 5. Docker CE installation
 6. Node.js and Claude Code CLI
-7. Python tools via uv (httpie for API testing, yq for YAML processing)
+7. Python 3.13 via uv with comprehensive development environment
 8. Fish shell plugins via Fisher
+
+### Python Development Environment
+- **Python Version**: 3.13 (latest stable version installed via uv)
+- **Package Manager**: uv (ultrafast Python package installer)
+- **Development Tools**:
+  - ruff: Fast Python linter and formatter
+  - mypy: Static type checker
+  - black: Code formatter
+  - pytest: Testing framework
+  - ipython: Enhanced interactive Python shell
+  - poetry: Dependency management and packaging
+  - pipx: Install Python applications in isolated environments
+  - httpie: API testing tool
+  - yq: YAML processor
+- **Environment Variables**:
+  - `PYTHONUNBUFFERED=1`: Real-time output in Docker logs
+  - `PYTHONDONTWRITEBYTECODE=1`: No .pyc files
+  - `UV_SYSTEM_PYTHON=1`: Allow system Python usage
 
 ### Fish Configuration
 - Located at `docker/config.fish`
 - Uses bobthefish theme with solarized color scheme
 - Includes timezone and date format customization
 - Sets up cloud SDK configuration
+- Python aliases for convenient command shortcuts:
+  - `py` → `python3`
+  - `pip` → `uv pip`
+  - `pytest`, `ruff`, `black`, `mypy`, `ipython` → respective uv tool commands
 
 ## DevContainer Configuration
 

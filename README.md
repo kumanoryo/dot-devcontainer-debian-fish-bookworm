@@ -16,6 +16,7 @@ Create docker container 'ghcr.io/bearfield/debian-fish:bookworm' for development
 - Docker CE
 
 ### 開発環境
+- Python 3.13 (最新版) with uv package manager
 - Node.js & Claude Code CLI
 - Fish shell with bobthefish theme
 - VS Code Extensions (GitHub Copilot, Claude Code, etc.)
@@ -49,7 +50,8 @@ flowchart TD
     M --> N[クラウドツールインストール<br/>gcloud, aws-cli, op]
     N --> O[Docker CEインストール]
     O --> P[Node.js & Claude CLIインストール]
-    P --> Q[Fish設定適用<br/>config.fish, Fisher plugins]
+    P --> P2[Python 3.13 & 開発ツールインストール<br/>uv, ruff, mypy, black等]
+    P2 --> Q[Fish設定適用<br/>config.fish, Fisher plugins]
     Q --> R[ビルド完了]
     
     R --> S{自動クリーンアップ}
@@ -160,3 +162,37 @@ flowchart TD
 ```
 
 この並列アプローチにより、ビルド時間が約半分に短縮されます。
+
+## Python開発環境
+
+このコンテナには最新のPython開発環境が含まれています：
+
+### Python環境
+- **Python**: 3.13（最新安定版）
+- **パッケージマネージャ**: uv（超高速Pythonパッケージインストーラー）
+
+### インストール済み開発ツール
+- **ruff**: 高速なPythonリンター＆フォーマッター
+- **mypy**: 静的型チェッカー
+- **black**: コードフォーマッター
+- **pytest**: テストフレームワーク
+- **ipython**: 強化された対話型Pythonシェル
+- **poetry**: 依存関係管理・パッケージングツール
+- **pipx**: Pythonアプリケーションの独立インストール
+- **httpie**: HTTPクライアント（API開発用）
+- **yq**: YAML/JSON/XML/CSVプロセッサー
+
+### 環境変数
+- `PYTHONUNBUFFERED=1`: Dockerログのリアルタイム出力
+- `PYTHONDONTWRITEBYTECODE=1`: .pycファイルの生成を無効化
+- `UV_SYSTEM_PYTHON=1`: システムPythonの使用を許可
+
+### Fish shellエイリアス
+開発効率を上げるためのエイリアスが設定されています：
+- `py` → `python3`
+- `pip` → `uv pip`
+- `pytest` → `uv tool run pytest`
+- `ruff` → `uv tool run ruff`
+- `black` → `uv tool run black`
+- `mypy` → `uv tool run mypy`
+- `ipython` → `uv tool run ipython`
