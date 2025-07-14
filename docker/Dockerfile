@@ -162,7 +162,9 @@ RUN fisher install bearfield/peco_select_gcp_project
 # power line style
 RUN fisher install oh-my-fish/theme-bobthefish
 # install claude-code as user
-RUN npm install --prefix /home/$USER_NAME/.npm-global @anthropic-ai/claude-code
+RUN mkdir -p /home/$USER_NAME/.npm-global && \
+    npm config set prefix /home/$USER_NAME/.npm-global && \
+    npm install -g @anthropic-ai/claude-code
 # copy config.fish
 COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 
