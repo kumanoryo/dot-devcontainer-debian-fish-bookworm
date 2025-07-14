@@ -117,11 +117,10 @@ RUN install -m 0755 -d /etc/apt/keyrings \
     && apt-get autoremove -y \
     && apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
-# install claude-code
+# install Node.js (needed for claude-code)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \
-    && npm install -g @anthropic-ai/claude-code \
     # crean up
     && apt-get autoremove -y \
     && apt-get clean -y \
@@ -162,7 +161,10 @@ RUN fisher install bearfield/peco_select_gce_ssh
 RUN fisher install bearfield/peco_select_gcp_project
 # power line style
 RUN fisher install oh-my-fish/theme-bobthefish
-#
+# install claude-code as user
+RUN mkdir -p /home/$USER_NAME/.npm-global && \
+    npm config set prefix /home/$USER_NAME/.npm-global && \
+    npm install -g @anthropic-ai/claude-code
 # copy config.fish
 COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 
@@ -173,6 +175,8 @@ RUN mkdir -p /home/$USER_NAME/.claude && \
 
 # set env
 ENV DEBIAN_FRONTEND=dialog
+# Add npm global bin to PATH for user
+ENV PATH="/home/$USER_NAME/.npm-global/bin:$PATH"
 # Python environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1

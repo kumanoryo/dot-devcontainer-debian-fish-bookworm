@@ -15,3 +15,6 @@ alias ruff="uv tool run ruff"
 alias black="uv tool run black"
 alias mypy="uv tool run mypy"
 alias ipython="uv tool run ipython"
+
+# Add npm user global bin to PATH
+set -gx PATH /home/$USER/.npm-global/bin $PATH
