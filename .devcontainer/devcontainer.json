@@ -28,7 +28,17 @@
                 "workbench.colorCustomizations": {
                     "statusBar.background": "#859900",
                     "statusBar.foreground": "#FFFFFF"
-                }
+                },
+                "python.defaultInterpreterPath": "uv",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true,
+                "python.linting.flake8Enabled": true,
+                "python.linting.mypyEnabled": true,
+                "python.linting.lintOnSave": true,
+                "python.formatting.provider": "black",
+                "python.linting.pylintArgs": ["--max-line-length=100"],
+                "python.linting.flake8Args": ["--max-line-length=100"],
+                "python.linting.mypyArgs": ["--ignore-missing-imports"]
             },
             "extensions": [
                 "wayou.vscode-todo-highlight",
@@ -46,7 +56,9 @@
                 "github.copilot-chat",
                 "vstirbu.vscode-mermaid-preview",
                 "anthropic.claude-code",
-                "aquasecurityofficial.trivy-vulnerability-scanner"
+                "aquasecurityofficial.trivy-vulnerability-scanner",
+                "ms-python.python",
+                "saoudrizwan.claude-dev"
             ]
         }
     }
