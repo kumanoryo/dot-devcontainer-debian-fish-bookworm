@@ -8,6 +8,12 @@
         "source=${localEnv:HOME}/.ssh,target=/home/${localEnv:USER}/.ssh,type=bind,consistency=cached,readonly",
         "source=${localEnv:HOME}/.claude/CLAUDE.md,target=/home/${localEnv:USER}/.claude/CLAUDE.md,type=bind,consistency=cached,readonly",
         "source=${localEnv:HOME}/.claude/settings.json,target=/home/${localEnv:USER}/.claude/settings.json,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/AGENTS.md,target=/home/${localEnv:USER}/.codex/AGENTS.md,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/config.toml,target=/home/${localEnv:USER}/.codex/config.toml,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/denylist.txt,target=/home/${localEnv:USER}/.codex/denylist.txt,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/allowlist.txt,target=/home/${localEnv:USER}/.codex/allowlist.txt,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/policy.md,target=/home/${localEnv:USER}/.codex/policy.md,type=bind,consistency=cached,readonly",
+        "source=${localEnv:HOME}/.codex/prompts,target=/home/${localEnv:USER}/.codex/prompts,type=bind,consistency=cached,readonly",
         "source=${localEnv:HOME}/Documents/Cline,target=/home/${localEnv:USER}/Cline,type=bind,consistency=cached,readonly"
     ],
     "features": {

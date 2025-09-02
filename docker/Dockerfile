@@ -164,7 +164,8 @@ RUN fisher install oh-my-fish/theme-bobthefish
 # install claude-code as user
 RUN mkdir -p /home/$USER_NAME/.npm-global && \
     npm config set prefix /home/$USER_NAME/.npm-global && \
-    npm install -g @anthropic-ai/claude-code
+    npm install -g @anthropic-ai/claude-code && \
+    npm install -g codex-cli
 # copy config.fish
 COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 
@@ -172,6 +173,11 @@ COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 RUN mkdir -p /home/$USER_NAME/.claude && \
     chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.claude && \
     chmod 755 /home/$USER_NAME/.claude
+
+# create .codex directory for Codex CLI settings and runtime files
+RUN mkdir -p /home/$USER_NAME/.codex && \
+    chown -R $USER_NAME:$USER_NAME /home/$USER_NAME/.codex && \
+    chmod 755 /home/$USER_NAME/.codex
 
 # set env
 ENV DEBIAN_FRONTEND=dialog
