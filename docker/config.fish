@@ -19,12 +19,7 @@ alias ipython="uv tool run ipython"
 # Add npm user global bin to PATH
 set -gx PATH /home/$USER/.npm-global/bin $PATH
 
-# codex: default approval mode wrapper (approval only)
-function codex
-    command codex --ask-for-approval on-failure $argv
-end
-
-# cdx: short form wrapper
+# cdx: short form wrapper (config-driven)
 function cdx
-    command codex --ask-for-approval on-failure $argv
+    command codex $argv
 end
