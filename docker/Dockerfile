@@ -166,7 +166,7 @@ RUN fisher install oh-my-fish/theme-bobthefish
 RUN mkdir -p /home/$USER_NAME/.npm-global && \
     npm config set prefix /home/$USER_NAME/.npm-global && \
     npm install -g @anthropic-ai/claude-code && \
-    npm install -g codex-cli
+    npm install -g @openai/codex
 # copy config.fish
 COPY config.fish /home/$USER_NAME/.config/fish/config.fish
 
