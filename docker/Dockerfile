@@ -39,6 +39,7 @@ RUN apt-get update \
         gcc \
         less \
         jq \
+        ripgrep \
         tree \
         zip \
         unzip \
